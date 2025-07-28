@@ -1,25 +1,220 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import './styles.css';
+import HomePage from './pages/HomePage';
+import MemoryWallPage from './pages/MemoryWallPage';
+import ProjectsPage from './pages/ProjectsPage';
+import DocsPage from './pages/DocsPage';
+import UpdatesPage from './pages/UpdatesPage';
+import ContactPage from './pages/ContactPage';
+import HallOfFamePage from './pages/HallOfFamePage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+const MicroelectronicsWebsite = () => {
+  const [currentPage, setCurrentPage] = useState('home');
+  const [memoryWallPassword, setMemoryWallPassword] = useState('');
+  const [isMemoryWallUnlocked, setIsMemoryWallUnlocked] = useState(false);
+  const [uploadedPhotos, setUploadedPhotos] = useState([]);
+  const [selectedTeamDocs, setSelectedTeamDocs] = useState('Team 1');
+  const [teamProjects, setTeamProjects] = useState({
+    'Team 1': { url: '', title: '', description: '' },
+    'Team 2': { url: '', title: '', description: '' },
+    'Team 3': { url: '', title: '', description: '' },
+    'Team 4': { url: '', title: '', description: '' },
+    'Team 5': { url: '', title: '', description: '' },
+    'Team 6': { url: '', title: '', description: '' },
+    'Team 7': { url: '', title: '', description: '' }
+  });
+  const [updateLogs, setUpdateLogs] = useState([]);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '', ta: 'Carlos' });
+  const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Team 1' });
+  const [newUpdate, setNewUpdate] = useState({ team: 'Team 1', update: '', author: '' });
+
+  const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
+  const tas = [
+    { name: 'Carlos', linkedin: 'https://linkedin.com/in/carlos-ta' },
+    { name: 'Winnie', linkedin: 'https://linkedin.com/in/winnie-ta' },
+    { name: 'Joshua', linkedin: 'https://linkedin.com/in/joshua-ta' },
+    { name: 'Chakri', linkedin: 'https://linkedin.com/in/chakri-ta' }
+  ];
+
+  const teamAchievements = [
+    { team: 'Team 1', achievement: 'Best Circuit Design', color: 'blue-gold-gradient' },
+    { team: 'Team 2', achievement: 'Top Fabrication Skill', color: 'gold-blue-gradient' },
+    { team: 'Team 3', achievement: 'Innovative Chip Layout', color: 'blue-gold-gradient' },
+    { team: 'Team 4', achievement: 'Best Signal Processing', color: 'gold-blue-gradient' },
+    { team: 'Team 5', achievement: 'Outstanding PCB Design', color: 'blue-gold-gradient' },
+    { team: 'Team 6', achievement: 'Top Microcontroller Use', color: 'gold-blue-gradient' },
+    { team: 'Team 7', achievement: 'Best Power Efficiency', color: 'blue-gold-gradient' }
+  ];
+
+  const handleMemoryWallAccess = () => {
+    if (memoryWallPassword === 'bwsi2025') {
+      setIsMemoryWallUnlocked(true);
+    } else {
+      alert('Incorrect password! Hint: bwsi + year');
+    }
+  };
+
+  const handlePhotoUpload = (event) => {
+    const files = Array.from(event.target.files);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedPhotos(prev => [...prev, {
+          id: Date.now() + Math.random(),
+          url: e.target.result,
+          name: file.name,
+          date: newMemory.date,
+          description: newMemory.description,
+          team: newMemory.team,
+          uploadDate: new Date().toLocaleDateString()
+        }]);
+      };
+      reader.readAsDataURL(file);
+    });
+    setNewMemory({ date: '', description: '', team: 'Team 1' });
+  };
+
+  const handleProjectUpdate = (team, field, value) => {
+    setTeamProjects(prev => ({
+      ...prev,
+      [team]: { ...prev[team], [field]: value }
+    }));
+  };
+
+  const addUpdateLog = () => {
+    if (newUpdate.team && newUpdate.update && newUpdate.author) {
+      const log = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        team: newUpdate.team,
+        update: newUpdate.update,
+        author: newUpdate.author
+      };
+      setUpdateLogs(prev => [log, ...prev]);
+      setNewUpdate({ team: 'Team 1', update: '', author: '' });
+    } else {
+      alert('Please fill in all fields.');
+    }
+  };
+
+  const handleContactSubmit = () => {
+    if (contactForm.name && contactForm.email && contactForm.message) {
+      alert(`Message sent to ${contactForm.ta}! They will get back to you soon.`);
+      setContactForm({ name: '', email: '', message: '', ta: 'Carlos' });
+    } else {
+      alert('Please fill in all fields.');
+    }
+  };
+
+  const icons = {
+    home: '⚙️',
+    memory: '💾',
+    projects: '🔌',
+    docs: '📟',
+    updates: '🕒',
+    contact: '📞',
+    hall: '🏅',
+    lock: '🔒',
+    camera: '📸',
+    user: '👤',
+    calendar: '📅',
+    edit: '✏️',
+    linkedin: '🔗',
+    trophy: '🏅',
+    file: '📄',
+    upload: '📤',
+    team: '👥',
+    clock: '🕒'
+  };
+
+  const Navigation = () => (
+  <nav className="nav-bar">
+    <div className="nav-content">
+      <div className="nav-logo">
+        <div className="logo-circuit"></div>
+        <h1 className="nav-title">BWSI 2025 Microelectronics</h1>
+      </div>
+      <div className="nav-dropdown">
+        <select
+          value={currentPage}
+          onChange={(e) => setCurrentPage(e.target.value)}
+          className="nav-select"
         >
-          Learn React
-        </a>
-      </header>
+          <option value="home">Home</option>
+          <option value="memory">Memory Wall</option>
+          <option value="projects">Projects</option>
+          <option value="docs">Docs</option>
+          <option value="updates">Updates</option>
+          <option value="contact">Contact</option>
+          <option value="hall">Hall of Fame</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+);
+
+  return (
+    <div className="app-container">
+      <Navigation />
+      {currentPage === 'home' && <HomePage />}
+      {currentPage === 'memory' && (
+        <MemoryWallPage
+          memoryWallPassword={memoryWallPassword}
+          setMemoryWallPassword={setMemoryWallPassword}
+          isMemoryWallUnlocked={isMemoryWallUnlocked}
+          setIsMemoryWallUnlocked={setIsMemoryWallUnlocked}
+          handleMemoryWallAccess={handleMemoryWallAccess}
+          newMemory={newMemory}
+          setNewMemory={setNewMemory}
+          handlePhotoUpload={handlePhotoUpload}
+          uploadedPhotos={uploadedPhotos}
+          icons={icons}
+        />
+      )}
+      {currentPage === 'projects' && (
+        <ProjectsPage
+          teamProjects={teamProjects}
+          handleProjectUpdate={handleProjectUpdate}
+          teams={teams}
+          icons={icons}
+        />
+      )}
+      {currentPage === 'docs' && (
+        <DocsPage
+          selectedTeamDocs={selectedTeamDocs}
+          setSelectedTeamDocs={setSelectedTeamDocs}
+          teams={teams}
+          icons={icons}
+        />
+      )}
+      {currentPage === 'updates' && (
+        <UpdatesPage
+          updateLogs={updateLogs}
+          newUpdate={newUpdate}
+          setNewUpdate={setNewUpdate}
+          addUpdateLog={addUpdateLog}
+          teams={teams}
+          icons={icons}
+        />
+      )}
+      {currentPage === 'contact' && (
+        <ContactPage
+          contactForm={contactForm}
+          setContactForm={setContactForm}
+          handleContactSubmit={handleContactSubmit}
+          tas={tas}
+          icons={icons}
+        />
+      )}
+      {currentPage === 'hall' && <HallOfFamePage teamAchievements={teamAchievements} icons={icons} />}
+      <footer className="footer">
+        <div className="footer-content">
+          <p className="footer-text">© 2025 BWSI Microelectronics Program. All rights reserved.</p>
+          <p className="footer-subtext">Powered by Silicon & Teamwork</p>
+        </div>
+      </footer>
     </div>
   );
-}
+};
 
-export default App;
+export default MicroelectronicsWebsite;
