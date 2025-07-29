@@ -906,6 +906,18 @@
   text-align: center;
 }
 
+/* ...existing code... */
+.log-empty-horizontal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+} 
+/*
+
 /* Hall of Fame Page */
 .hall-page {
   min-height: 100vh;

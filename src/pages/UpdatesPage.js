@@ -1,12 +1,21 @@
 import React from 'react';
 
 const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams, icons }) => (
-  <div className="updates-page">
-    <div className="updates-content">
-      <h1 className="updates-title">Project Update Log</h1>
-      <div className="updates-form">
-        <h3 className="form-title">Add New Update</h3>
-        <div className="form-fields">
+  <div className="memory-page">
+    <div className="memory-content">
+      <h1 className="memory-title">Project Update Log</h1>
+      <div className="memory-upload" style={{ marginBottom: '2rem' }}>
+        <h3 className="upload-title">Log a Chip Update</h3>
+        <div className="upload-fields">
+          <div>
+            <label className="field-label">Date</label>
+            <input
+              type="date"
+              value={newUpdate.date}
+              onChange={(e) => setNewUpdate({ ...newUpdate, date: e.target.value })}
+              className="field-input"
+            />
+          </div>
           <div>
             <label className="field-label">Team</label>
             <select
@@ -27,44 +36,37 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
               className="field-input"
             />
           </div>
-          <div>
-            <label className="field-label">Action</label>
-            <button onClick={addUpdateLog} className="form-button">Add Update</button>
+          <div className="field-full">
+            <label className="field-label">Update Description</label>
+            <input
+              type="text"
+              value={newUpdate.update}
+              onChange={(e) => setNewUpdate({ ...newUpdate, update: e.target.value })}
+              placeholder="Describe your chip update..."
+              className="field-input"
+            />
           </div>
         </div>
-        <div>
-          <label className="field-label">Update Description</label>
-          <textarea
-            value={newUpdate.update}
-            onChange={(e) => setNewUpdate({ ...newUpdate, update: e.target.value })}
-            placeholder="Describe your chip update..."
-            rows={3}
-            className="field-input"
-          />
-        </div>
+        <button onClick={addUpdateLog} className="lock-button" style={{ marginTop: '1rem' }}>
+          Add Update
+        </button>
       </div>
-      <div className="updates-log">
+      <div className="photo-grid">
         {updateLogs.map((log) => (
-          <div key={log.id} className="log-entry">
-            <div className="log-header">
-              <div className="log-info">
-                <div className={`log-circle ${log.team === 'Team 1' ? 'log-blue' : log.team === 'Team 2' ? 'log-gold' : 'log-default'}`}></div>
-                <div>
-                  <span className="log-team">{log.team}</span>
-                  <p className="log-author">by {log.author}</p>
-                </div>
-              </div>
-              <span className="log-date">{log.date}</span>
+          <div key={log.id} className="photo-card">
+            <div className="photo-info">
+              <span className={`photo-team ${
+                log.team === 'Team 1' ? 'team-blue' :
+                log.team === 'Team 2' ? 'team-gold' : 'team-default'
+              }`}>
+                {log.team}
+              </span>
+              <p className="photo-desc">{log.update}</p>
+              <p className="photo-date">{log.date}</p>
+              <p className="photo-author">by {log.author}</p>
             </div>
-            <p className="log-text">{log.update}</p>
           </div>
         ))}
-        {updateLogs.length === 0 && (
-          <div className="log-empty">
-            <span className="empty-icon">{icons.clock}</span>
-            <p className="empty-text">No updates yet. Teams can log chip progress!</p>
-          </div>
-        )}
       </div>
     </div>
   </div>
