@@ -25,7 +25,12 @@ const MicroelectronicsWebsite = () => {
   });
   const [updateLogs, setUpdateLogs] = useState([]);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '', ta: 'Carlos' });
-  const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Team 1' });
+  const [newMemory, setNewMemory] = useState({
+    date: '',
+    team: 'Team 1',
+    description: '',
+    files: []
+  });
   const [newUpdate, setNewUpdate] = useState({ team: 'Team 1', update: '', author: '' });
 
   const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
@@ -48,24 +53,8 @@ const MicroelectronicsWebsite = () => {
     }
   };
 
-  const handlePhotoUpload = (event) => {
-    const files = Array.from(event.target.files);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUploadedPhotos(prev => [...prev, {
-          id: Date.now() + Math.random(),
-          url: e.target.result,
-          name: file.name,
-          date: newMemory.date,
-          description: newMemory.description,
-          team: newMemory.team,
-          uploadDate: new Date().toLocaleDateString()
-        }]);
-      };
-      reader.readAsDataURL(file);
-    });
-    setNewMemory({ date: '', description: '', team: 'Team 1' });
+  const handlePhotoUpload = (e) => {
+    setNewMemory({ ...newMemory, files: Array.from(e.target.files) });
   };
 
   const handleProjectUpdate = (team, field, value) => {
@@ -98,6 +87,29 @@ const MicroelectronicsWebsite = () => {
     } else {
       alert('Please fill in all fields.');
     }
+  };
+
+  const handleMemorySubmit = () => {
+    if (!newMemory.date || !newMemory.team || !newMemory.description || newMemory.files.length === 0) {
+      alert('Please fill in all fields and select at least one photo.');
+      return;
+    }
+
+    const newPhotos = newMemory.files.map(file => ({
+      id: Date.now() + Math.random(),
+      url: URL.createObjectURL(file),
+      name: file.name,
+      team: newMemory.team,
+      description: newMemory.description,
+      date: newMemory.date
+    }));
+
+    setUploadedPhotos(prev => [...prev, ...newPhotos]);
+    setNewMemory({ date: '', team: 'Team 1', description: '', files: [] });
+  };
+
+  const handlePhotoDelete = (id) => {
+    setUploadedPhotos(prev => prev.filter(photo => photo.id !== id));
   };
 
   const icons = {
@@ -162,6 +174,8 @@ const MicroelectronicsWebsite = () => {
           setNewMemory={setNewMemory}
           handlePhotoUpload={handlePhotoUpload}
           uploadedPhotos={uploadedPhotos}
+          handleMemorySubmit={handleMemorySubmit}
+          handlePhotoDelete={handlePhotoDelete}
           icons={icons}
         />
       )}

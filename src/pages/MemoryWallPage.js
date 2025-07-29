@@ -1,5 +1,12 @@
 import React from 'react';
 
+const preventEnterSubmit = (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+  }
+};
+
+
 const MemoryWallPage = ({
   memoryWallPassword,
   setMemoryWallPassword,
@@ -9,7 +16,9 @@ const MemoryWallPage = ({
   newMemory,
   setNewMemory,
   handlePhotoUpload,
+  handleMemorySubmit, // 🔹 NEW PROP: Add this to handle submission
   uploadedPhotos,
+  handlePhotoDelete, // 🔹 NEW PROP: Add this for delete functionality
   icons
 }) => (
   <div className="memory-page">
@@ -19,7 +28,7 @@ const MemoryWallPage = ({
         <div className="memory-lock">
           <span className="lock-icon">{icons.lock}</span>
           <h2 className="lock-title">Secure Access</h2>
-          <p className="lock-text">Enter password to view chip memories</p>
+          <p className="lock-text">Enter password to view memories</p>
           <div className="lock-form">
             <input
               type="password"
@@ -27,15 +36,20 @@ const MemoryWallPage = ({
               onChange={(e) => setMemoryWallPassword(e.target.value)}
               placeholder="Enter password"
               className="lock-input"
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  handleMemoryWallAccess();
+                }
+              }}
             />
-            <button onClick={handleMemoryWallAccess} className="lock-button">Unlock Memory</button>
+            <button onClick={handleMemoryWallAccess} className="lock-button">Unlock Memories</button>
           </div>
         </div>
       ) : (
         <div>
           <div className="memory-upload">
-            <h3 className="upload-title">Upload Chip Memory</h3>
-            <div className="upload-fields">
+            <h3 className="upload-title">Upload your favorite BWSI memory</h3>
+            <div className="upload-fields"onKeyDown={preventEnterSubmit}>
               <div>
                 <label className="field-label">Date</label>
                 <input
@@ -63,40 +77,49 @@ const MemoryWallPage = ({
                   type="text"
                   value={newMemory.description}
                   onChange={(e) => setNewMemory({ ...newMemory, description: e.target.value })}
-                  placeholder="Describe this chip memory..."
+                  placeholder="Describe this memory..."
                   className="field-input"
                 />
               </div>
+              <div className="field-full">
+                <label className="field-label">Upload Photos</label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  className="field-input" // ✅ matches the input style
+                />
+              </div>
             </div>
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handlePhotoUpload}
-              className="file-input"
-            />
+            <button onClick={handleMemorySubmit} className="lock-button" style={{ marginTop: '1rem' }}>
+              Submit Memory
+            </button>
           </div>
+
           <div className="photo-grid">
-            {uploadedPhotos.map(photo => (
-              <div key={photo.id} className="photo-card">
-                <div className="photo-image">
-                  <img src={photo.url} alt={photo.name} className="photo-img" />
+            {uploadedPhotos.length > 0 ? (
+              uploadedPhotos.map(photo => (
+                <div key={photo.id} className="photo-card">
+                  <div className="photo-image">
+                    <img src={photo.url} alt={photo.name} className="photo-img" />
+                  </div>
+                  <div className="photo-info">
+                    <span className={`photo-team ${photo.team === 'Team 1' ? 'team-blue' : photo.team === 'Team 2' ? 'team-gold' : 'team-default'}`}>
+                      {photo.team}
+                    </span>
+                    <p className="photo-desc">{photo.description}</p>
+                    <p className="photo-date">{photo.date}</p>
+                    <button
+                      className="delete-button"
+                      onClick={() => handlePhotoDelete(photo.id)} // 🔸 delete function per photo
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <div className="photo-info">
-                  <span className={`photo-team ${photo.team === 'Team 1' ? 'team-blue' : photo.team === 'Team 2' ? 'team-gold' : 'team-default'}`}>
-                    {photo.team}
-                  </span>
-                  <p className="photo-desc">{photo.description}</p>
-                  <p className="photo-date">{photo.date}</p>
-                </div>
-              </div>
-            ))}
-            {uploadedPhotos.length === 0 && (
-              <div className="photo-empty">
-                <span className="empty-icon">{icons.camera}</span>
-                <p className="empty-text">No chip memories uploaded yet. Share your designs!</p>
-              </div>
-            )}
+              ))
+            ) : null}
           </div>
         </div>
       )}
