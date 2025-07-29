@@ -36,7 +36,7 @@ const MicroelectronicsWebsite = () => {
   const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
 
   const teamAchievements = [
-    { team: 'Team 1', achievement: 'Best Circuit Design', color: 'blue-gold-gradient' },
+    { team: 'Team 1', achievement: 'Best Pet Owners', color: 'blue-gold-gradient' },
     { team: 'Team 2', achievement: 'Top Fabrication Skill', color: 'gold-blue-gradient' },
     { team: 'Team 3', achievement: 'Innovative Chip Layout', color: 'blue-gold-gradient' },
     { team: 'Team 4', achievement: 'Best Signal Processing', color: 'gold-blue-gradient' },
