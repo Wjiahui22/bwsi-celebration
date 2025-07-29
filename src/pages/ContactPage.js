@@ -11,8 +11,8 @@ const ContactPage = () => {
 const tas = [
   { name: 'Carlos', email: 'carlos.longoria.116@gmail.com', linkedin: 'https://www.linkedin.com/in/carlos-g-longoria/', image: '/images/carlos.jpeg' },
   { name: 'Winnie', email: 'jhwinniec@u.northwestern.edu', linkedin: 'https://www.linkedin.com/in/jhwinniec/', image: '/images/winnie.png' },
-  { name: 'Joshua', email: 'joshua@vanderbilt.edu', linkedin: 'https://linkedin.com/in/joshua-ta', image: '/images/joshua.jpg' },
-  { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://linkedin.com/in/chakri-ta', image: '/images/chakri.jpg' }
+  { name: 'Joshua', email: 'joshuazhang101@gmail.com', linkedin: 'https://www.linkedin.com/in/jzhang101/', image: '/images/josh.jpeg' },
+  { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://www.linkedin.com/in/chakradhara/', image: '/images/chakri.jpeg' }
 ];
 
   const handleContactSubmit = () => {

@@ -144,15 +144,39 @@
   border: 4px solid #facc15;
   overflow: hidden;
 }
+.photo-placeholder-home {
+  height: 24rem; /* Sets the height of the container */
+  background: linear-gradient(to bottom right, #1a1a1a, #2d2d2d); /* Gradient background */
+  display: flex; /* Uses flexbox for layout */
+  flex-direction: column; /* Arranges children vertically */
+  align-items: center; /* Centers children horizontally */
+  justify-content: center; /* Centers children vertically */
+  position: relative; /* Allows for absolutely positioned children */
+  overflow: hidden; /* Clips anything that overflows the container */
+}
+.photo-placeholder-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(250, 204, 21, 0.2),
+    rgba(250, 204, 21, 0.2) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
 .photo-placeholder {
-  height: 24rem;
+  width: 100px;
+  height: 100px;
   background: linear-gradient(to bottom right, #1a1a1a, #2d2d2d);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  border-radius: 50%;
 }
 .photo-placeholder::before {
   content: '';
@@ -165,6 +189,7 @@
     transparent 5px,
     transparent 10px
   );
+  border-radius: 50%;
 }
 .photo-icon {
   font-size: 3.75rem;
@@ -906,18 +931,6 @@
   text-align: center;
 }
 
-/* ...existing code... */
-.log-empty-horizontal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  min-height: 100px;
-  width: 100%;
-  box-sizing: border-box;
-}
-/*
-
 /* Hall of Fame Page */
 .hall-page {
   min-height: 100vh;
@@ -926,8 +939,9 @@
 }
 .hall-content {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 0 auto; /* Centers the container horizontally */
   padding: 0 1rem;
+  text-align: center; /* Helps center the grid if needed */
 }
 .hall-title {
   font-size: 3rem;
@@ -941,12 +955,15 @@
 }
 .hall-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr) !important; /* 2 columns */
   gap: 2rem;
+  justify-content: center; /* Centers the grid items if they don’t fill the row */
+  margin: 0 auto; /* Ensures the grid itself is centered */
 }
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .hall-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr !important; /* Stack vertically on small screens */
+    justify-content: center; /* Maintain centering on mobile */
   }
 }
 @media (min-width: 1024px) {
@@ -988,39 +1005,6 @@
 .hall-divider {
   height: 0.5rem;
   border-radius: 9999px;
-}
-.team-member-section {
-  margin-top: 12px;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.member-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80px;
-}
-.photo-placeholder {
-  width: 60px;
-  height: 60px;
-  background-color: #eee;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.4rem;
-  margin-bottom: 6px;
-  border: 2px solid #ccc;
-}
-.member-name-input {
-  width: 100%;
-  padding: 4px;
-  font-size: 0.8rem;
-  text-align: center;
-  border: 1px solid #bbb;
-  border-radius: 4px;
 }
 .blue-gold-gradient { background: linear-gradient(to right, #404040, #facc15); }
 .gold-blue-gradient { background: linear-gradient(to right, #facc15, #404040); }
@@ -1071,4 +1055,36 @@
 }
 .delete-button:hover {
   background: #dc2626;
+}
+
+.team-member-section {
+  display: flex; /* Horizontal layout for member boxes */
+  gap: 1rem; /* Space between member boxes */
+  margin-top: 1rem;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+  white-space: nowrap; /* Prevents wrapping */
+}
+.member-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px; /* Fixed width for consistency */
+  flex-shrink: 0; /* Prevents shrinking of boxes */
+}
+
+.member-name-input {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: #e4d9d9;
+  color: #d4d4d8;
+  text-align: center;
+}
+.photo-author {
+  color: #637e0b; /* Green color for the author's name */
+  margin: 0;
+  font-size: 0.9rem;
+ 
 }

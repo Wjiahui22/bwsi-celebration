@@ -3,9 +3,9 @@ import React from 'react';
 const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams, icons }) => (
   <div className="memory-page">
     <div className="memory-content">
-      <h1 className="memory-title">Project Update Log</h1>
+      <h1 className="memory-title"> Personal Life Updates</h1>
       <div className="memory-upload" style={{ marginBottom: '2rem' }}>
-        <h3 className="upload-title">Log a Chip Update</h3>
+        <h3 className="upload-title">Log a life Update</h3>
         <div className="upload-fields">
           <div>
             <label className="field-label">Date</label>
@@ -32,7 +32,7 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
               type="text"
               value={newUpdate.author}
               onChange={(e) => setNewUpdate({ ...newUpdate, author: e.target.value })}
-              placeholder="Your name"
+              placeholder="Enter your name"
               className="field-input"
             />
           </div>
@@ -62,8 +62,9 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
                 {log.team}
               </span>
               <p className="photo-desc">{log.update}</p>
+              <p className="photo-author">By {log.author}</p>
               <p className="photo-date">{log.date}</p>
-              <p className="photo-author">by {log.author}</p>
+              
             </div>
           </div>
         ))}

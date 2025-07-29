@@ -9,28 +9,31 @@ const HomePage = () => (
         <div className="divider"></div>
       </div>
       <div className="photo-section">
-        <div className="photo-placeholder">
-          <span className="photo-icon">📸</span>
-          <p className="photo-text">Chip Photo Coming Soon</p>
-          <p className="photo-subtext">Upload your latest microchip design!</p>
+        <div className="photo-placeholder-home">
+          <img
+            src="/images/BW-Entrance.jpg"
+            alt="Microchip Design"
+            className="photo-img"
+          />
         </div>
       </div>
       <div className="home-sections">
         <div className="section about">
           <h3 className="section-title">About Our Class</h3>
           <p className="section-text">
-            Dive into the Beaver Works Summer Institute 2025 Microelectronics program! 
-            Explore semiconductor physics, circuit design, and fabrication with cutting-edge tools.
+            Dive into the Beaver Works Summer Institute 2025 Microelectronics Class!
+            This summer, we started with an introduction to Arduino, resistors, and basic electronics.
+            Students are now working on hands-on challenges and preparing for their final project!
           </p>
         </div>
         <div className="section highlights">
           <h3 className="section-title">Program Highlights</h3>
           <ul className="highlight-list">
             {[
-              'Semiconductor Fabrication Labs',
-              'Advanced Circuit Design',
-              'Industry Expert Mentorship',
-              'Team-Based Chip Projects'
+              'MIT.nano Lab Tour',
+              'Circuit Design',
+              'Speaker from Waymo',
+              'Team-Based Projects'
             ].map((item, idx) => (
               <li key={idx} className="highlight-item">{item}</li>
             ))}

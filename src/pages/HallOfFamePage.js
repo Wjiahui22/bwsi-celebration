@@ -14,9 +14,9 @@ const HallOfFamePage = ({ teamAchievements, icons }) => (
             <p className="hall-achievement">{achievement.achievement}</p>
             <div className={`hall-divider ${achievement.color}`}></div>
 
-            {/* 👇 Standalone team member box section */}
+            {/* 👇 Team member box section, now horizontal */}
             <div className="team-member-section">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(achievement.members || 5)].map((_, i) => (
                 <div key={i} className="member-box">
                   <div className="photo-placeholder">📷</div>
                   <input

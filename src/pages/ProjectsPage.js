@@ -3,7 +3,7 @@ import React from 'react';
 const ProjectsPage = ({ teamProjects, handleProjectUpdate, teams, icons }) => (
   <div className="projects-page">
     <div className="projects-content">
-      <h1 className="projects-title">Microchip Projects</h1>
+      <h1 className="projects-title">Team Projects</h1>
       <div className="projects-grid">
         {teams.map((team, idx) => (
           <div key={team} className="project-card">
@@ -31,7 +31,7 @@ const ProjectsPage = ({ teamProjects, handleProjectUpdate, teams, icons }) => (
                   <textarea
                     value={teamProjects[team].description}
                     onChange={(e) => handleProjectUpdate(team, 'description', e.target.value)}
-                    placeholder="Describe your chip project..."
+                    placeholder="Describe your project..."
                     rows={3}
                     className="field-input"
                   />
