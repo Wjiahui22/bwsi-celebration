@@ -36,8 +36,8 @@ const MicroelectronicsWebsite = () => {
   const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
 
   const teamAchievements = [
-    { team: 'Team 1', achievement: 'Best Pet Owners', color: 'blue-gold-gradient' },
-    { team: 'Team 2', achievement: '...', color: 'gold-blue-gradient' },
+    { team: 'Team 1', achievement: 'Pet Wellness Experts', color: 'blue-gold-gradient' },
+    { team: 'Team 2', achievement: 'Recovery Specialists', color: 'gold-blue-gradient' },
     { team: 'Team 3', achievement: 'Multilingual Maestros', color: 'blue-gold-gradient' },
     { team: 'Team 4', achievement: 'Greatest Green Thumbs', color: 'gold-blue-gradient' },
     { team: 'Team 5', achievement: '...', color: 'blue-gold-gradient' },
