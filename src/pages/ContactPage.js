@@ -9,10 +9,10 @@ const ContactPage = () => {
   });
 
 const tas = [
-  { name: 'Carlos', email: 'carlos@mit.edu', linkedin: 'https://linkedin.com/in/carlos-ta', image: '/images/carlos.jpg' },
+  { name: 'Carlos', email: 'carlos.longoria.116@gmail.com', linkedin: 'https://www.linkedin.com/in/carlos-g-longoria/', image: '/images/carlos.jpeg' },
   { name: 'Winnie', email: 'jhwinniec@u.northwestern.edu', linkedin: 'https://www.linkedin.com/in/jhwinniec/', image: '/images/winnie.png' },
   { name: 'Joshua', email: 'joshua@vanderbilt.edu', linkedin: 'https://linkedin.com/in/joshua-ta', image: '/images/joshua.jpg' },
-  { name: 'Chakri', email: 'chakri@michiganstate.edu', linkedin: 'https://linkedin.com/in/chakri-ta', image: '/images/chakri.jpg' }
+  { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://linkedin.com/in/chakri-ta', image: '/images/chakri.jpg' }
 ];
 
   const handleContactSubmit = () => {
