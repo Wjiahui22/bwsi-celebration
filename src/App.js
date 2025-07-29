@@ -29,12 +29,6 @@ const MicroelectronicsWebsite = () => {
   const [newUpdate, setNewUpdate] = useState({ team: 'Team 1', update: '', author: '' });
 
   const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
-  const tas = [
-    { name: 'Carlos', linkedin: 'https://linkedin.com/in/carlos-ta' },
-    { name: 'Winnie', linkedin: 'https://linkedin.com/in/winnie-ta' },
-    { name: 'Joshua', linkedin: 'https://linkedin.com/in/joshua-ta' },
-    { name: 'Chakri', linkedin: 'https://linkedin.com/in/chakri-ta' }
-  ];
 
   const teamAchievements = [
     { team: 'Team 1', achievement: 'Best Circuit Design', color: 'blue-gold-gradient' },
@@ -202,15 +196,14 @@ const MicroelectronicsWebsite = () => {
           contactForm={contactForm}
           setContactForm={setContactForm}
           handleContactSubmit={handleContactSubmit}
-          tas={tas}
           icons={icons}
         />
       )}
       {currentPage === 'hall' && <HallOfFamePage teamAchievements={teamAchievements} icons={icons} />}
       <footer className="footer">
         <div className="footer-content">
-          <p className="footer-text">© 2025 BWSI Microelectronics Program. All rights reserved.</p>
-          <p className="footer-subtext">Powered by Silicon & Teamwork</p>
+          <p className="footer-text">© 2025 BWSI Microelectronics. All rights reserved.</p>
+          <p className="footer-subtext">Built with ❤️ by your lovely TAs Powered by Silicon & Teamwork</p>
         </div>
       </footer>
     </div>

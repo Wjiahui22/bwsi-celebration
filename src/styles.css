@@ -257,7 +257,7 @@
   }
 }
 .ta-card {
-  text-align: center;
+  text-align: left;
 }
 .ta-chip {
   width: 6rem;
@@ -306,6 +306,19 @@
 }
 .link-icon {
   font-size: 1rem;
+}
+
+.ta-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.ta-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
 }
 
 /* Memory Wall Page */
@@ -891,62 +904,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 4rem;
   text-align: center;
-}
-
-/* Contact Page */
-.contact-page {
-  min-height: 100vh;
-  background: white;
-  padding: 2rem 0;
-}
-.contact-content {
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-.contact-title {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 2rem;
-  background: linear-gradient(to right, #404040, #facc15);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.contact-sections {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-@media (min-width: 768px) {
-  .contact-sections {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.contact-form {
-  background: #1a1a1a;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  border-left: 4px solid #404040;
-}
-.contact-tas {
-  background: #1a1a1a;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  border-left: 4px solid #facc15;
-}
-.ta-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.ta-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 /* Hall of Fame Page */
