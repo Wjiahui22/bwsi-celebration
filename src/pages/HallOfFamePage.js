@@ -14,16 +14,12 @@ const HallOfFamePage = ({ teamAchievements, icons }) => (
             <p className="hall-achievement">{achievement.achievement}</p>
             <div className={`hall-divider ${achievement.color}`}></div>
 
-            {/* 👇 Team member box section, now horizontal */}
+            {/* ✅ Display member names statically */}
             <div className="team-member-section">
-              {[...Array(achievement.members || 5)].map((_, i) => (
+              {achievement.members.map((name, i) => (
                 <div key={i} className="member-box">
                   <div className="photo-placeholder">📷</div>
-                  <input
-                    type="text"
-                    className="member-name-input"
-                    placeholder={`Member ${i + 1}`}
-                  />
+                  <div className="member-name">{name}</div>
                 </div>
               ))}
             </div>

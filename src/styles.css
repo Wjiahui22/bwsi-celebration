@@ -1071,20 +1071,12 @@
   width: 100px; /* Fixed width for consistency */
   flex-shrink: 0; /* Prevents shrinking of boxes */
 }
-
-.member-name-input {
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.25rem;
-  border: none;
-  border-radius: 0.25rem;
-  background: #e4d9d9;
-  color: #d4d4d8;
-  text-align: center;
+.member-name {
+  color: white;
 }
 .photo-author {
   color: #637e0b; /* Green color for the author's name */
   margin: 0;
   font-size: 0.9rem;
- 
+
 }

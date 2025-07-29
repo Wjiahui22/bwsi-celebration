@@ -36,14 +36,49 @@ const MicroelectronicsWebsite = () => {
   const teams = ['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'];
 
   const teamAchievements = [
-    { team: 'Team 1', achievement: 'Pet Wellness Experts', color: 'blue-gold-gradient' },
-    { team: 'Team 2', achievement: 'Recovery Specialists', color: 'gold-blue-gradient' },
-    { team: 'Team 3', achievement: 'Multilingual Maestros', color: 'blue-gold-gradient' },
-    { team: 'Team 4', achievement: 'Greatest Green Thumbs', color: 'gold-blue-gradient' },
-    { team: 'Team 5', achievement: '...', color: 'blue-gold-gradient' },
-    { team: 'Team 6', achievement: '...', color: 'gold-blue-gradient' },
-    { team: 'Team 7', achievement: '...', color: 'blue-gold-gradient' }
-  ];
+  {
+    team: "Team 1",
+    achievement: "Pet Wellness Experts",
+    color: "blue-gold-gradient",
+    members: ["Jina", "Conan", "Arya", "Zimeng", "Horton"]
+  },
+  {
+    team: "Team 2",
+    achievement: "Recovery Innovators",
+    color: "gold-blue-gradient",
+    members: ["Abigail", "Chris", "Ethan", "Vihan", "Jessica"]
+  },
+  {
+    team: "Team 3",
+    achievement: "Multilingual Maestros",
+    color: "blue-gold-gradient",
+    members: ["Cody", "Florence", "Jonathan", "Nishka", "David"]
+  },
+  {
+    team: "Team 4",
+    achievement: "Greatest Green Thumbs",
+    color: "gold-blue-gradient",
+    members: ["Belal", "Adrian", "Maurischa", "Sahana", "Robert"]
+  },
+  {
+    team: "Team 5",
+    achievement: "They Can Handl It",
+    color: "blue-gold-gradient",
+    members: ["Bailey", "Jazmine", "Sujitha", "Kazimir", "Sophia"]
+  },
+  {
+    team: "Team 6",
+    achievement: "Pill Precision Specialists",
+    color: "gold-blue-gradient",
+    members: ["Navneet", "Rohan", "Pratham", "Juanito"]
+  },
+  {
+    team: "Team 7",
+    achievement: "Unifying Network Creators",
+    color: "blue-gold-gradient",
+    members: ["Brandon", "Zarif", "Aadrit", "Robert"]
+  },
+];
 
   const handleMemoryWallAccess = () => {
     if (memoryWallPassword === 'bwsi2025') {
