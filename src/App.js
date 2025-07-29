@@ -37,12 +37,12 @@ const MicroelectronicsWebsite = () => {
 
   const teamAchievements = [
     { team: 'Team 1', achievement: 'Best Pet Owners', color: 'blue-gold-gradient' },
-    { team: 'Team 2', achievement: 'Top Fabrication Skill', color: 'gold-blue-gradient' },
-    { team: 'Team 3', achievement: 'Innovative Chip Layout', color: 'blue-gold-gradient' },
-    { team: 'Team 4', achievement: 'Best Signal Processing', color: 'gold-blue-gradient' },
-    { team: 'Team 5', achievement: 'Outstanding PCB Design', color: 'blue-gold-gradient' },
-    { team: 'Team 6', achievement: 'Top Microcontroller Use', color: 'gold-blue-gradient' },
-    { team: 'Team 7', achievement: 'Best Power Efficiency', color: 'blue-gold-gradient' }
+    { team: 'Team 2', achievement: '...', color: 'gold-blue-gradient' },
+    { team: 'Team 3', achievement: 'Multilingual Maestros', color: 'blue-gold-gradient' },
+    { team: 'Team 4', achievement: 'Greatest Green Thumbs', color: 'gold-blue-gradient' },
+    { team: 'Team 5', achievement: '...', color: 'blue-gold-gradient' },
+    { team: 'Team 6', achievement: '...', color: 'gold-blue-gradient' },
+    { team: 'Team 7', achievement: '...', color: 'blue-gold-gradient' }
   ];
 
   const handleMemoryWallAccess = () => {
