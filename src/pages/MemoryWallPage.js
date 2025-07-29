@@ -66,7 +66,7 @@ const MemoryWallPage = ({
                   onChange={(e) => setNewMemory({ ...newMemory, team: e.target.value })}
                   className="field-input"
                 >
-                  {['Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7'].map(team => (
+                  {['Homeo', 'Beaver Fever', 'Monsieur Tortue', 'Smart Garden', 'Handl', 'PillMate', 'UNC'].map(team => (
                     <option key={team} value={team}>{team}</option>
                   ))}
                 </select>

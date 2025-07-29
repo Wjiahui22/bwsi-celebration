@@ -5,17 +5,8 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
     <div className="memory-content">
       <h1 className="memory-title"> Personal Life Updates</h1>
       <div className="memory-upload" style={{ marginBottom: '2rem' }}>
-        <h3 className="upload-title">Log a life Update</h3>
+        <h3 className="upload-title">Log a Life Update</h3>
         <div className="upload-fields">
-          <div>
-            <label className="field-label">Date</label>
-            <input
-              type="date"
-              value={newUpdate.date}
-              onChange={(e) => setNewUpdate({ ...newUpdate, date: e.target.value })}
-              className="field-input"
-            />
-          </div>
           <div>
             <label className="field-label">Team</label>
             <select
@@ -55,16 +46,12 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
         {updateLogs.map((log) => (
           <div key={log.id} className="photo-card">
             <div className="photo-info">
-              <span className={`photo-team ${
-                log.team === 'Team 1' ? 'team-blue' :
-                log.team === 'Team 2' ? 'team-gold' : 'team-default'
-              }`}>
+              <span className="photo-team team-default">
                 {log.team}
               </span>
               <p className="photo-desc">{log.update}</p>
-              <p className="photo-author">By {log.author}</p>
               <p className="photo-date">{log.date}</p>
-              
+              <p className="photo-author">by {log.author}</p>
             </div>
           </div>
         ))}
