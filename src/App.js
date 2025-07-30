@@ -1,3 +1,4 @@
+import supabase from './supabaseClient';
 import React, { useState } from 'react';
 import './styles.css';
 import HomePage from './pages/HomePage';
@@ -11,7 +12,9 @@ const MicroelectronicsWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [memoryWallPassword, setMemoryWallPassword] = useState('');
   const [isMemoryWallUnlocked, setIsMemoryWallUnlocked] = useState(false);
+  const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Team 1' });
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
+  const [newUpdate, setNewUpdate] = useState({ team: 'Team 1', update: '', author: '' });
   const [teamProjects, setTeamProjects] = useState({
     'Team 1': {
       submissions: [{
@@ -362,5 +365,88 @@ const MicroelectronicsWebsite = () => {
     </div>
   );
 };
+
+// Supabase Setup
+const handlePhotoUpload = async (event) => {
+  const files = Array.from(event.target.files);
+
+  for (const file of files) {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const newPhoto = {
+        url: e.target.result,
+        name: file.name,
+        date: newMemory.date || null,
+        description: newMemory.description,
+        team: newMemory.team,
+        upload_date: new Date().toISOString().split('T')[0]
+      };
+
+      const { error } = await supabase.from('photos').insert([newPhoto]);
+      if (error) {
+        console.error('Upload error:', error);
+      } else {
+        setUploadedPhotos(prev => [...prev, newPhoto]);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  setNewMemory({ date: '', description: '', team: 'Team 1' });
+};
+
+
+const addUpdateLog = async () => {
+  if (newUpdate.team && newUpdate.update && newUpdate.author) {
+    const log = {
+      team: newUpdate.team,
+      update: newUpdate.update,
+      author: newUpdate.author,
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    const { error } = await supabase.from('updates').insert([log]);
+    if (error) {
+      console.error('Error saving update:', error);
+    } else {
+      setUpdateLogs(prev => [log, ...prev]);
+      setNewUpdate({ team: 'Team 1', update: '', author: '' });
+    }
+  } else {
+    alert('Please fill in all fields.');
+  }
+};
+
+
+const handleContactSubmit = async () => {
+  if (contactForm.name && contactForm.email && contactForm.message) {
+    const { error } = await supabase.from('contacts').insert([contactForm]);
+    if (error) {
+      console.error('Error sending message:', error);
+    } else {
+      alert(`Message sent to ${contactForm.ta}!`);
+      setContactForm({ name: '', email: '', message: '', ta: 'Carlos' });
+    }
+  } else {
+    alert('Please fill in all fields.');
+  }
+};
+
+useEffect(() => {
+  const fetchPhotos = async () => {
+    const { data, error } = await supabase
+      .from('photos')
+      .select('*')
+      .order('upload_date', { ascending: false });
+
+    if (error) console.error('Failed to fetch photos:', error);
+    else setUploadedPhotos(data);
+  };
+
+  if (isMemoryWallUnlocked) {
+    fetchPhotos();
+  }
+}, [isMemoryWallUnlocked]);
+
 
 export default MicroelectronicsWebsite;
