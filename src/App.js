@@ -15,7 +15,7 @@ const MicroelectronicsWebsite = () => {
   const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Homeo', files: [] });
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
   const [newUpdate, setNewUpdate] = useState({ team: 'Homeo', update: '', author: '' });
-  const [teamProjects, setTeamProjects] = useState({
+  const [teamProjects] = useState({
     'Homeo': {
       submissions: [{
         id: 'homeo-1',
