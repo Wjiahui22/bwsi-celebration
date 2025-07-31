@@ -240,28 +240,46 @@ const MicroelectronicsWebsite = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      const { data, error } = await supabase
-        .from('photos')
-        .select('*')
-        .order('upload_date', { ascending: false });
+useEffect(() => {
+  const fetchPhotos = async () => {
+    const { data, error } = await supabase
+      .from('photos')
+      .select('*')
+      .order('upload_date', { ascending: false });
 
-      if (error) {
-        console.error('Failed to fetch photos:', error);
-      } else {
-        const updatedPhotos = data.map(photo => ({
-          ...photo,
-          team: photo.team === 'Team 1' ? 'Homeo' : photo.team
-        }));
-        setUploadedPhotos(updatedPhotos);
-      }
-    };
-
-    if (isMemoryWallUnlocked) {
-      fetchPhotos();
+    if (error) {
+      console.error('Failed to fetch photos:', error);
+    } else {
+      const updatedPhotos = data.map(photo => ({
+        ...photo,
+        team: photo.team === 'Team 1' ? 'Homeo' : photo.team
+      }));
+      setUploadedPhotos(updatedPhotos);
     }
-  }, [isMemoryWallUnlocked]);
+  };
+
+  const fetchUpdates = async () => {
+    const { data, error } = await supabase
+      .from('updates')
+      .select('*')
+      .order('date', { ascending: false });
+
+    if (error) {
+      console.error('Failed to fetch updates:', error);
+    } else {
+      setUpdateLogs(data);
+    }
+  };
+
+  // Always fetch updates
+  fetchUpdates();
+
+  // Fetch photos only if unlocked
+  if (isMemoryWallUnlocked) {
+    fetchPhotos();
+  }
+}, [isMemoryWallUnlocked]);
+
 
   const icons = {
     home: '⚙️',
