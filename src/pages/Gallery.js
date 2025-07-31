@@ -6,41 +6,41 @@ const styles = {
   container: {
     minHeight: '100vh',
     backgroundColor: '#fff',
-    padding: '32px 0',
+    padding: '16px 0',
   },
   wrapper: {
     maxWidth: '1280px',
     margin: '0 auto',
-    padding: '0 16px',
+    padding: '0 8px',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '32px',
+    marginBottom: '24px',
   },
   title: {
-    fontSize: '48px',
+    fontSize: '36px',
     fontWeight: '700',
-    marginBottom: '16px',
+    marginBottom: '12px',
     background: 'linear-gradient(to right, #4b5563, #facc15)',
     WebkitBackgroundClip: 'text',
     color: 'transparent',
   },
   subtitle: {
-    fontSize: '20px',
+    fontSize: '16px',
     color: '#6b7280',
-    marginBottom: '32px',
+    marginBottom: '24px',
   },
   searchFilterBar: {
     backgroundColor: '#18181b',
-    borderRadius: '16px',
-    padding: '24px',
+    borderRadius: '12px',
+    padding: '16px',
     borderLeft: '4px solid #facc15',
-    marginBottom: '32px',
+    marginBottom: '24px',
   },
   searchFilterRow: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: '12px',
   },
   searchContainer: {
     position: 'relative',
@@ -48,16 +48,17 @@ const styles = {
   },
   searchInput: {
     width: '100%',
-    padding: '12px 16px 12px 40px',
+    padding: '10px 12px 10px 36px',
     backgroundColor: '#27272a',
     border: '1px solid #4b5563',
-    borderRadius: '8px',
+    borderRadius: '6px',
     color: '#fff',
     outline: 'none',
+    fontSize: '14px',
   },
   searchIcon: {
     position: 'absolute',
-    left: '12px',
+    left: '10px',
     top: '50%',
     transform: 'translateY(-50%)',
     color: '#9ca3af',
@@ -65,41 +66,44 @@ const styles = {
   select: {
     backgroundColor: '#27272a',
     border: '1px solid #4b5563',
-    borderRadius: '8px',
-    padding: '12px 16px',
+    borderRadius: '6px',
+    padding: '10px 12px',
     color: '#fff',
     outline: 'none',
+    fontSize: '14px',
+    width: '100%',
   },
   statsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
-    gap: '24px',
-    marginBottom: '48px',
+    gap: '16px',
+    marginBottom: '32px',
   },
   statCard: {
     backgroundColor: '#18181b',
-    borderRadius: '12px',
-    padding: '24px',
+    borderRadius: '8px',
+    padding: '16px',
     borderLeft: '4px solid #facc15',
     textAlign: 'center',
   },
   statNumber: {
-    fontSize: '30px',
+    fontSize: '24px',
     fontWeight: '700',
-    marginBottom: '8px',
+    marginBottom: '6px',
   },
   statLabel: {
     color: '#d1d5db',
+    fontSize: '14px',
   },
   projectGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '32px',
+    gap: '24px',
   },
   projectCard: {
     backgroundColor: '#18181b',
-    borderRadius: '16px',
-    padding: '24px',
+    borderRadius: '12px',
+    padding: '16px',
     borderLeft: '4px solid #facc15',
     boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
     transition: 'all 0.2s',
@@ -118,38 +122,39 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '16px',
+    padding: '8px',
     zIndex: '50',
   },
   modalContent: {
     backgroundColor: '#18181b',
-    borderRadius: '16px',
-    maxWidth: '1280px',
+    borderRadius: '12px',
+    maxWidth: '90vw',
     width: '100%',
-    maxHeight: '90vh',
+    maxHeight: '85vh',
     overflow: 'hidden',
   },
   modalHeader: {
-    padding: '24px',
+    padding: '16px',
     borderBottom: '1px solid #4b5563',
   },
   modalBody: {
-    padding: '24px',
+    padding: '16px',
     overflowY: 'auto',
     maxHeight: '60vh',
   },
   modalFooter: {
-    padding: '24px',
+    padding: '16px',
     borderTop: '1px solid #4b5563',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   button: {
-    padding: '8px 16px',
-    borderRadius: '8px',
+    padding: '6px 12px',
+    borderRadius: '6px',
     fontWeight: '500',
     cursor: 'pointer',
+    fontSize: '14px',
   },
   buttonPrimary: {
     backgroundColor: '#facc15',
@@ -162,9 +167,64 @@ const styles = {
   link: {
     color: '#facc15',
     textDecoration: 'underline',
-    marginTop: '8px',
-    marginBottom: '16px',
+    marginTop: '6px',
+    marginBottom: '12px',
     display: 'inline-block',
+    fontSize: '14px',
+  },
+  // Mobile-specific styles
+  '@media (max-width: 640px)': {
+    container: {
+      padding: '8px 0',
+    },
+    wrapper: {
+      padding: '0 4px',
+    },
+    title: {
+      fontSize: '28px',
+      marginBottom: '8px',
+    },
+    subtitle: {
+      fontSize: '14px',
+      marginBottom: '16px',
+    },
+    searchFilterBar: {
+      padding: '12px',
+    },
+    searchFilterRow: {
+      flexDirection: 'column',
+      gap: '8px',
+    },
+    statsGrid: {
+      gridTemplateColumns: '1fr',
+      gap: '12px',
+    },
+    statCard: {
+      padding: '12px',
+    },
+    statNumber: {
+      fontSize: '20px',
+    },
+    projectGrid: {
+      gridTemplateColumns: '1fr',
+      gap: '16px',
+    },
+    projectCard: {
+      padding: '12px',
+    },
+    modalContent: {
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+    },
+    modalHeader: {
+      padding: '12px',
+    },
+    modalBody: {
+      padding: '12px',
+    },
+    modalFooter: {
+      padding: '12px',
+    },
   },
 };
 
@@ -240,7 +300,7 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
 
           {/* Search and Filter Bar */}
           <div style={styles.searchFilterBar}>
-            <div style={{...styles.searchFilterRow, flexDirection: 'row', alignItems: 'center'}}>
+            <div style={styles.searchFilterRow}>
               {/* Search */}
               <div style={styles.searchContainer}>
                 <span style={styles.searchIcon}>🔍</span>
@@ -284,12 +344,12 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
         {/* Stats Dashboard */}
         <div style={styles.statsGrid}>
           <div style={{...styles.statCard, borderLeftColor: '#facc15'}}>
-            <span style={{fontSize: '32px'}}>🏆</span>
+            <span style={{fontSize: '28px'}}>🏆</span>
             <div style={{...styles.statNumber, color: '#facc15'}}>{enhancedSubmissions.length}</div>
             <div style={styles.statLabel}>Total Projects</div>
           </div>
           <div style={{...styles.statCard, borderLeftColor: '#3b82f6'}}>
-            <span style={{fontSize: '32px'}}>👍</span>
+            <span style={{fontSize: '28px'}}>👍</span>
             <div style={{...styles.statNumber, color: '#3b82f6'}}>
               {enhancedSubmissions.reduce((acc, sub) => acc + (sub.votes || 0) + (votes[sub.id] || 0), 0)}
             </div>
@@ -299,7 +359,7 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
 
         {/* Project Grid */}
         {enhancedSubmissions.length === 0 ? (
-          <p style={{textAlign: 'center', color: '#9ca3af', fontSize: '16px'}}>No projects submitted yet.</p>
+          <p style={{textAlign: 'center', color: '#9ca3af', fontSize: '14px'}}>No projects submitted yet.</p>
         ) : (
           <div style={styles.projectGrid}>
             {filteredAndSortedSubmissions.map((submission) => (
@@ -339,9 +399,9 @@ const EnhancedProjectCard = ({ submission, votes, onVote, onViewDetails }) => {
       onMouseLeave={e => Object.assign(e.currentTarget.style, styles.projectCard)}
     >
       {/* Header */}
-      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '16px'}}>
+      <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '12px'}}>
         <div>
-          <h3 style={{fontSize: '20px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h3>
+          <h3 style={{fontSize: '18px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h3>
         </div>
       </div>
 
@@ -354,9 +414,9 @@ const EnhancedProjectCard = ({ submission, votes, onVote, onViewDetails }) => {
       )}
 
       {/* Tags */}
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '16px'}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px', marginBottom: '12px'}}>
         {submission.tags.slice(0, 3).map((tag, idx) => (
-          <span key={idx} style={{backgroundColor: '#27272a', color: '#facc15', padding: '4px 8px', borderRadius: '16px', fontSize: '12px', border: '1px solid #4b5563'}}>
+          <span key={idx} style={{backgroundColor: '#27272a', color: '#facc15', padding: '4px 8px', borderRadius: '12px', fontSize: '12px', border: '1px solid #4b5563'}}>
             {tag}
           </span>
         ))}
@@ -366,18 +426,18 @@ const EnhancedProjectCard = ({ submission, votes, onVote, onViewDetails }) => {
       </div>
 
       {/* Stats */}
-      <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '16px'}}>
-        <div style={{backgroundColor: '#27272a', borderRadius: '8px', padding: '12px', textAlign: 'center', border: '1px solid #4b5563'}}>
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '12px'}}>
+        <div style={{backgroundColor: '#27272a', borderRadius: '6px', padding: '12px', textAlign: 'center', border: '1px solid #4b5563'}}>
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px'}}>
             <span style={{color: '#3b82f6'}}>👍</span>
-            <span style={{color: '#3b82f6', fontWeight: '600'}}>{totalVotes}</span>
+            <span style={{color: '#3b82f6', fontWeight: '600', fontSize: '14px'}}>{totalVotes}</span>
           </div>
           <div style={styles.statLabel}>Votes</div>
         </div>
-        <div style={{backgroundColor: '#27272a', borderRadius: '8px', padding: '12px', textAlign: 'center', border: '1px solid #4b5563'}}>
+        <div style={{backgroundColor: '#27272a', borderRadius: '6px', padding: '12px', textAlign: 'center', border: '1px solid #4b5563'}}>
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px'}}>
             <span style={{color: '#a855f7'}}>👥</span>
-            <span style={{color: '#a855f7', fontWeight: '600'}}>{submission.teamMembers.length}</span>
+            <span style={{color: '#a855f7', fontWeight: '600', fontSize: '14px'}}>{submission.teamMembers.length}</span>
           </div>
           <div style={styles.statLabel}>Members</div>
         </div>
@@ -414,12 +474,12 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
         <div style={styles.modalHeader}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
             <div>
-              <h2 style={{fontSize: '24px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h2>
-              <div style={{display: 'flex', alignItems: 'center', gap: '16px', color: '#9ca3af', fontSize: '14px'}}>
+              <h2 style={{fontSize: '20px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h2>
+              <div style={{display: 'flex', alignItems: 'center', gap: '12px', color: '#9ca3af', fontSize: '12px'}}>
                 <span style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
                   👥 {submission.teamMembers.length} members
                 </span>
-                <span style={{backgroundColor: '#27272a', padding: '4px 8px', borderRadius: '4px', color: '#facc15'}}>
+                <span style={{backgroundColor: '#27272a', padding: '4px 8px', borderRadius: '4px', color: '#facc15', fontSize: '12px'}}>
                   {submission.category}
                 </span>
               </div>
@@ -430,15 +490,15 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
               )}
             </div>
 
-            <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-              <div style={{display: 'flex', alignItems: 'center', gap: '16px', fontSize: '14px'}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px'}}>
                 <span style={{display: 'flex', alignItems: 'center', gap: '4px', color: '#3b82f6'}}>
                   👍 {totalVotes}
                 </span>
               </div>
               <button
                 onClick={onClose}
-                style={{color: '#9ca3af', fontSize: '24px', fontWeight: '700', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                style={{color: '#9ca3af', fontSize: '20px', fontWeight: '700', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
               >
                 ×
               </button>
@@ -446,7 +506,7 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
           </div>
 
           {/* Tabs */}
-          <div style={{display: 'flex', gap: '4px', marginTop: '24px'}}>
+          <div style={{display: 'flex', gap: '4px', marginTop: '16px'}}>
             {['overview', 'documentation', 'team'].map(tab => (
               <button
                 key={tab}
@@ -455,7 +515,8 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
                   ...styles.button,
                   backgroundColor: activeTab === tab ? '#facc15' : '#27272a',
                   color: activeTab === tab ? '#18181b' : '#d1d5db',
-                  textTransform: 'capitalize'
+                  textTransform: 'capitalize',
+                  fontSize: '14px',
                 }}
               >
                 {tab}
@@ -467,17 +528,17 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
         {/* Content */}
         <div style={styles.modalBody}>
           {activeTab === 'overview' && (
-            <div style={{display: 'flex', flexDirection: 'column', gap: '24px'}}>
+            <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
               <div>
-                <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Project Description</h4>
-                <p style={{color: '#d1d5db', lineHeight: '1.5'}}>{submission.shortDescription}</p>
+                <h4 style={{fontSize: '16px', fontWeight: '600', color: '#facc15', marginBottom: '8px'}}>Project Description</h4>
+                <p style={{color: '#d1d5db', lineHeight: '1.5', fontSize: '14px'}}>{submission.shortDescription}</p>
               </div>
 
               <div>
-                <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Tags</h4>
-                <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
+                <h4 style={{fontSize: '16px', fontWeight: '600', color: '#facc15', marginBottom: '8px'}}>Tags</h4>
+                <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px'}}>
                   {submission.tags.map((tag, idx) => (
-                    <span key={idx} style={{backgroundColor: '#27272a', color: '#facc15', padding: '4px 12px', borderRadius: '16px', fontSize: '14px', border: '1px solid #4b5563'}}>
+                    <span key={idx} style={{backgroundColor: '#27272a', color: '#facc15', padding: '4px 10px', borderRadius: '12px', fontSize: '12px', border: '1px solid #4b5563'}}>
                       {tag}
                     </span>
                   ))}
@@ -488,16 +549,16 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
 
           {activeTab === 'documentation' && (
             <div>
-              <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '16px'}}>Documentation</h4>
+              <h4 style={{fontSize: '16px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Documentation</h4>
               {submission.documents && submission.documents.length > 0 ? (
-                <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                <div style={{display: 'flex', flexDirection: 'column', gap: '12px'}}>
                   {submission.documents.map((doc, idx) => (
-                    <div key={idx} style={{backgroundColor: '#27272a', borderRadius: '8px', padding: '16px', border: '1px solid #4b5563'}}>
+                    <div key={idx} style={{backgroundColor: '#27272a', borderRadius: '6px', padding: '12px', border: '1px solid #4b5563'}}>
                       <a
                         href={doc.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        style={{...styles.link, marginBottom: '0'}}
+                        style={{...styles.link, marginBottom: '0', fontSize: '14px'}}
                       >
                         {doc.name}
                       </a>
@@ -512,14 +573,14 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
 
           {activeTab === 'team' && (
             <div>
-              <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '16px'}}>Team Members</h4>
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px'}}>
+              <h4 style={{fontSize: '16px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Team Members</h4>
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px'}}>
                 {submission.teamMembers.map((member, idx) => (
-                  <div key={idx} style={{backgroundColor: '#27272a', borderRadius: '8px', padding: '16px', border: '1px solid #4b5563'}}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                  <div key={idx} style={{backgroundColor: '#27272a', borderRadius: '6px', padding: '12px', border: '1px solid #4b5563'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                       <div>
-                        <p style={{color: '#fff', fontWeight: '500'}}>{member}</p>
-                        <p style={{color: '#9ca3af', fontSize: '14px'}}>Team Member</p>
+                        <p style={{color: '#fff', fontWeight: '500', fontSize: '14px'}}>{member}</p>
+                        <p style={{color: '#9ca3af', fontSize: '12px'}}>Team Member</p>
                       </div>
                     </div>
                   </div>
@@ -531,10 +592,10 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
 
         {/* Footer Actions */}
         <div style={styles.modalFooter}>
-          <div style={{display: 'flex', gap: '12px'}}>
+          <div style={{display: 'flex', gap: '8px'}}>
             <button
               onClick={() => onVote(submission.id)}
-              style={{...styles.button, ...styles.buttonVote, display: 'flex', alignItems: 'center', gap: '8px'}}
+              style={{...styles.button, ...styles.buttonVote, display: 'flex', alignItems: 'center', gap: '6px'}}
             >
               👍 Vote ({totalVotes})
             </button>
