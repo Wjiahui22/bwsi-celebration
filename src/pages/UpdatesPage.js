@@ -33,7 +33,7 @@ const UpdatesPage = ({ updateLogs, newUpdate, setNewUpdate, addUpdateLog, teams,
               type="text"
               value={newUpdate.update}
               onChange={(e) => setNewUpdate({ ...newUpdate, update: e.target.value })}
-              placeholder="Describe your chip update..."
+              placeholder="Describe your life update..."
               className="field-input"
             />
           </div>

@@ -1,17 +1,12 @@
 import React from 'react';
 
-const ContactPage = ({ contactForm, setContactForm, handleContactSubmit, contactMessage, icons }) => {
+const ContactPage = ({ icons }) => {
   const tas = [
     { name: 'Carlos', email: 'carlos.longoria.116@gmail.com', linkedin: 'https://www.linkedin.com/in/carlos-g-longoria/', image: '/images/carlos.jpeg' },
     { name: 'Winnie', email: 'jhwinniec@u.northwestern.edu', linkedin: 'https://www.linkedin.com/in/jhwinniec/', image: '/images/winnie.png' },
     { name: 'Joshua', email: 'joshuazhang101@gmail.com', linkedin: 'https://www.linkedin.com/in/jzhang101/', image: '/images/josh.jpeg' },
     { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://www.linkedin.com/in/chakradhara/', image: '/images/chakri.jpeg' }
   ];
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setContactForm((prev) => ({ ...prev, [name]: value }));
-  };
 
   // LinkedIn icon as SVG
   const LinkedInIcon = () => (
@@ -31,136 +26,86 @@ const ContactPage = ({ contactForm, setContactForm, handleContactSubmit, contact
       min-height: 100vh;
       background: white;
       padding: 2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .contact-content {
-      max-width: 64rem;
+      max-width: 80rem;
       margin: 0 auto;
       padding: 0 1rem;
+      width: 100%;
     }
     .contact-title {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: bold;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       background: linear-gradient(to right, #404040, #facc15);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
-    .contact-sections {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-    @media (min-width: 768px) {
-      .contact-sections {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-    .contact-form {
+    .ta-section {
       background: #1a1a1a;
       border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      padding: 2rem;
-      border-left: 4px solid #404040;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .contact-form div {
-      display: flex;
-      flex-direction: column;
-    }
-    .contact-form .form-fields {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .contact-form .field-label {
-      color: #d4d4d8;
-      font-weight: 500;
-      margin-bottom: 0.5rem;
-    }
-    .contact-form .field-input {
-      background: #333;
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.75rem;
-      color: #d4d4d8;
-      margin-top: 0.5rem;
-    }
-    .contact-form .field-input::placeholder {
-      color: #9ca3af;
-    }
-    .contact-form .field-input:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px #facc15;
-    }
-    .contact-form .form-button {
-      background: #facc15;
-      border: none;
-      border-radius: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      color: #1a1a1a;
-      font-weight: bold;
-      cursor: pointer;
-      align-self: flex-start;
-      transition: background-color 0.2s;
-    }
-    .contact-form .form-button:hover {
-      background: #eab308;
-    }
-    .contact-tas {
-      background: #1a1a1a;
-      border-radius: 1rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
       padding: 2rem;
       border-left: 4px solid #facc15;
     }
-    .form-title {
+    .ta-title {
       color: #d4d4d8;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: bold;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
     }
-    .ta-list {
-      display: flex;
-      flex-direction: column;
+    .ta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
     }
     .ta-item {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem;
+      padding: 1.5rem;
       background: #2a2a2a;
       border-radius: 0.75rem;
       border: 1px solid #404040;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ta-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     }
     .ta-photo {
-      width: 3rem;
-      height: 3rem;
+      width: 5rem;
+      height: 5rem;
       border-radius: 50%;
       object-fit: cover;
+      margin-bottom: 1rem;
+      border: 2px solid #facc15;
     }
     .ta-info {
-      flex: 1;
+      text-align: center;
     }
     .ta-name {
       color: #d4d4d8;
       font-weight: bold;
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       margin: 0 0 0.5rem 0;
     }
     .ta-role {
       color: #9ca3af;
       font-size: 0.875rem;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.75rem 0;
     }
     .ta-email {
       color: #facc15;
       font-size: 0.875rem;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.75rem 0;
+      word-break: break-all;
     }
     .ta-link {
       display: inline-flex;
@@ -173,16 +118,23 @@ const ContactPage = ({ contactForm, setContactForm, handleContactSubmit, contact
     .ta-link:hover {
       color: #3b82f6;
     }
-    .contact-message {
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 1rem;
-    }
-    .contact-message.success {
-      color: #22c55e;
-    }
-    .contact-message.error {
-      color: #ef4444;
+    @media (max-width: 640px) {
+      .contact-title {
+        font-size: 2rem;
+      }
+      .ta-title {
+        font-size: 1.5rem;
+      }
+      .ta-grid {
+        grid-template-columns: 1fr;
+      }
+      .ta-item {
+        padding: 1rem;
+      }
+      .ta-photo {
+        width: 4rem;
+        height: 4rem;
+      }
     }
   `;
 
@@ -191,99 +143,28 @@ const ContactPage = ({ contactForm, setContactForm, handleContactSubmit, contact
       <style>{styles}</style>
       <div className="contact-page">
         <div className="contact-content">
-          <h1 className="contact-title">{icons?.contact || '📞'} Contact TAs</h1>
-          <div className="contact-sections">
-            <div className="contact-form">
-              <h3 className="form-title">Send a Message</h3>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleContactSubmit();
-                }}
-                className="form-fields"
-              >
-                <div>
-                  <label className="field-label">Your Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={contactForm.name}
-                    onChange={handleInputChange}
-                    placeholder="Enter your name"
-                    className="field-input"
-                    required
+          <h1 className="contact-title">{icons?.contact || '📞'} Meet Our TAs</h1>
+          <div className="ta-section">
+            <h3 className="ta-title">Teaching Assistants</h3>
+            <div className="ta-grid">
+              {tas.map((ta) => (
+                <div key={ta.name} className="ta-item">
+                  <img
+                    src={ta.image}
+                    alt={ta.name}
+                    className="ta-photo"
                   />
-                </div>
-                <div>
-                  <label className="field-label">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={contactForm.email}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    className="field-input"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="field-label">Select Mentor</label>
-                  <select
-                    name="ta"
-                    value={contactForm.ta}
-                    onChange={handleInputChange}
-                    className="field-input"
-                    required
-                  >
-                    {tas.map(ta => (
-                      <option key={ta.name} value={ta.name}>{ta.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="field-label">Message</label>
-                  <textarea
-                    name="message"
-                    value={contactForm.message}
-                    onChange={handleInputChange}
-                    placeholder="Your message..."
-                    rows={5}
-                    className="field-input"
-                    required
-                  />
-                </div>
-                <button type="submit" className="form-button">Send Message</button>
-              </form>
-              {contactMessage && (
-                <p
-                  className={`contact-message ${contactMessage.includes('Error') ? 'error' : 'success'}`}
-                >
-                  {contactMessage}
-                </p>
-              )}
-            </div>
-            <div className="contact-tas">
-              <h3 className="form-title">Teaching Assistants</h3>
-              <div className="ta-list">
-                {tas.map((ta) => (
-                  <div key={ta.name} className="ta-item">
-                    <img
-                      src={ta.image}
-                      alt={ta.name}
-                      className="ta-photo"
-                    />
-                    <div className="ta-info">
-                      <h4 className="ta-name">{ta.name}</h4>
-                      <p className="ta-role">Teaching Assistant</p>
-                      <p className="ta-email">{ta.email}</p>
-                      <a href={ta.linkedin} target="_blank" rel="noopener noreferrer" className="ta-link">
-                        <LinkedInIcon />
-                        LinkedIn Profile
-                      </a>
-                    </div>
+                  <div className="ta-info">
+                    <h4 className="ta-name">{ta.name}</h4>
+                    <p className="ta-role">Teaching Assistant</p>
+                    <p className="ta-email">{ta.email}</p>
+                    <a href={ta.linkedin} target="_blank" rel="noopener noreferrer" className="ta-link">
+                      <LinkedInIcon />
+                      LinkedIn Profile
+                    </a>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -108,17 +108,6 @@ const styles = {
     transform: 'scale(1.02)',
     boxShadow: '0 6px 12px rgba(0,0,0,0.15)',
   },
-  avatar: {
-    width: '48px',
-    height: '48px',
-    background: 'linear-gradient(to bottom right, #facc15, #eab308)',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '700',
-    color: '#18181b',
-  },
   modal: {
     position: 'fixed',
     top: '0',
@@ -188,43 +177,42 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-  const fetchVotes = async () => {
-    const { data, error } = await supabase.from('votes').select('*');
-    if (data) {
-      const voteMap = {};
-      data.forEach(row => {
-        voteMap[row.project_id] = row.vote_count;
-      });
-      setVotes(voteMap);
-    } else {
-      console.error('Failed to fetch votes:', error);
-    }
-  };
+    const fetchVotes = async () => {
+      const { data, error } = await supabase.from('votes').select('*');
+      if (data) {
+        const voteMap = {};
+        data.forEach(row => {
+          voteMap[row.project_id] = row.vote_count;
+        });
+        setVotes(voteMap);
+      } else {
+        console.error('Failed to fetch votes:', error);
+      }
+    };
 
-  fetchVotes();
-}, []);
+    fetchVotes();
+  }, []);
 
   const enhancedSubmissions = submissions || [];
 
-const handleVote = async (projectId) => {
-  // Optimistically update local state
-  setVotes(prev => ({
-    ...prev,
-    [projectId]: (prev[projectId] || 0) + 1
-  }));
+  const handleVote = async (projectId) => {
+    // Optimistically update local state
+    setVotes(prev => ({
+      ...prev,
+      [projectId]: (prev[projectId] || 0) + 1
+    }));
 
-  const { data, error } = await supabase.rpc('increment_vote', { p_id: projectId });
+    const { data, error } = await supabase.rpc('increment_vote', { p_id: projectId });
 
-  if (error) {
-    console.log('RPC result:', { data, error });  // 👈 ADD THIS LINE
-    alert('Vote failed. Please try again.');
-  }
-};
+    if (error) {
+      console.log('RPC result:', { data, error });
+      alert('Vote failed. Please try again.');
+    }
+  };
 
   const filteredAndSortedSubmissions = enhancedSubmissions
     .filter(sub => {
-      const matchesSearch = sub.projectTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           sub.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      const matchesSearch = sub.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            sub.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
       const matchesFilter = filterBy === 'all' ||
@@ -238,7 +226,7 @@ const handleVote = async (projectId) => {
           return (b.votes + (votes[b.id] || 0)) - (a.votes + (votes[a.id] || 0));
         case 'title':
         default:
-          return a.projectTitle.localeCompare(b.projectTitle);
+          return a.team.localeCompare(b.team);
       }
     });
 
@@ -258,7 +246,7 @@ const handleVote = async (projectId) => {
                 <span style={styles.searchIcon}>🔍</span>
                 <input
                   type="text"
-                  placeholder="Search projects, teams, or tags..."
+                  placeholder="Search teams or tags..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   style={styles.searchInput}
@@ -271,7 +259,7 @@ const handleVote = async (projectId) => {
                 onChange={(e) => setSortBy(e.target.value)}
                 style={styles.select}
               >
-                <option value="title">Title (A-Z)</option>
+                <option value="title">Team (A-Z)</option>
                 <option value="popular">Most Popular</option>
               </select>
 
@@ -352,18 +340,12 @@ const EnhancedProjectCard = ({ submission, votes, onVote, onViewDetails }) => {
     >
       {/* Header */}
       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '16px'}}>
-        <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-          <div style={styles.avatar}>
-            <span style={{fontSize: '18px'}}>{submission.team.charAt(submission.team.length - 1)}</span>
-          </div>
-          <div>
-            <h3 style={{fontSize: '20px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h3>
-          </div>
+        <div>
+          <h3 style={{fontSize: '20px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h3>
         </div>
       </div>
 
       {/* Project Info */}
-      <h4 style={{fontSize: '18px', fontWeight: '600', color: '#fff', marginBottom: '8px'}}>{submission.projectTitle}</h4>
       <p style={{color: '#d1d5db', fontSize: '14px', marginBottom: '12px'}}>{submission.shortDescription}</p>
       {submission.website && (
         <a href={submission.website} target="_blank" rel="noopener noreferrer" style={styles.link}>
@@ -431,27 +413,21 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
         {/* Header */}
         <div style={styles.modalHeader}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-            <div style={{display: 'flex', alignItems: 'center', gap: '16px'}}>
-              <div style={{...styles.avatar, width: '64px', height: '64px'}}>
-                <span style={{fontSize: '24px'}}>{submission.team.charAt(submission.team.length - 1)}</span>
+            <div>
+              <h2 style={{fontSize: '24px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h2>
+              <div style={{display: 'flex', alignItems: 'center', gap: '16px', color: '#9ca3af', fontSize: '14px'}}>
+                <span style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
+                  👥 {submission.teamMembers.length} members
+                </span>
+                <span style={{backgroundColor: '#27272a', padding: '4px 8px', borderRadius: '4px', color: '#facc15'}}>
+                  {submission.category}
+                </span>
               </div>
-              <div>
-                <h2 style={{fontSize: '24px', fontWeight: '700', color: '#facc15'}}>{submission.team}</h2>
-                <h3 style={{fontSize: '20px', color: '#fff', marginBottom: '8px'}}>{submission.projectTitle}</h3>
-                <div style={{display: 'flex', alignItems: 'center', gap: '16px', color: '#9ca3af', fontSize: '14px'}}>
-                  <span style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
-                    👥 {submission.teamMembers.length} members
-                  </span>
-                  <span style={{backgroundColor: '#27272a', padding: '4px 8px', borderRadius: '4px', color: '#facc15'}}>
-                    {submission.category}
-                  </span>
-                </div>
-                {submission.website && (
-                  <a href={submission.website} target="_blank" rel="noopener noreferrer" style={styles.link}>
-                    Visit Project Website
-                  </a>
-                )}
-              </div>
+              {submission.website && (
+                <a href={submission.website} target="_blank" rel="noopener noreferrer" style={styles.link}>
+                  Visit Project Website
+                </a>
+              )}
             </div>
 
             <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
@@ -541,9 +517,6 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
                 {submission.teamMembers.map((member, idx) => (
                   <div key={idx} style={{backgroundColor: '#27272a', borderRadius: '8px', padding: '16px', border: '1px solid #4b5563'}}>
                     <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                      <div style={{...styles.avatar, width: '40px', height: '40px'}}>
-                        <span>{member.charAt(0)}</span>
-                      </div>
                       <div>
                         <p style={{color: '#fff', fontWeight: '500'}}>{member}</p>
                         <p style={{color: '#9ca3af', fontSize: '14px'}}>Team Member</p>
@@ -566,7 +539,6 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
               👍 Vote ({totalVotes})
             </button>
           </div>
-
         </div>
       </div>
     </div>

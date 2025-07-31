@@ -6,7 +6,6 @@ const preventEnterSubmit = (e) => {
   }
 };
 
-
 const MemoryWallPage = ({
   memoryWallPassword,
   setMemoryWallPassword,
@@ -16,9 +15,8 @@ const MemoryWallPage = ({
   newMemory,
   setNewMemory,
   handlePhotoUpload,
-  handleMemorySubmit, // 🔹 NEW PROP: Add this to handle submission
+  handleMemorySubmit,
   uploadedPhotos,
-  handlePhotoDelete, // 🔹 NEW PROP: Add this for delete functionality
   icons
 }) => (
   <div className="memory-page">
@@ -49,7 +47,7 @@ const MemoryWallPage = ({
         <div>
           <div className="memory-upload">
             <h3 className="upload-title">Upload your favorite BWSI memory</h3>
-            <div className="upload-fields"onKeyDown={preventEnterSubmit}>
+            <div className="upload-fields" onKeyDown={preventEnterSubmit}>
               <div>
                 <label className="field-label">Date</label>
                 <input
@@ -88,7 +86,7 @@ const MemoryWallPage = ({
                   multiple
                   accept="image/*"
                   onChange={handlePhotoUpload}
-                  className="field-input" // ✅ matches the input style
+                  className="field-input"
                 />
               </div>
             </div>
@@ -105,17 +103,11 @@ const MemoryWallPage = ({
                     <img src={photo.url} alt={photo.name} className="photo-img" />
                   </div>
                   <div className="photo-info">
-                    <span className={`photo-team ${photo.team === 'Team 1' ? 'team-blue' : photo.team === 'Team 2' ? 'team-gold' : 'team-default'}`}>
+                    <span className="photo-team team-default">
                       {photo.team}
                     </span>
                     <p className="photo-desc">{photo.description}</p>
                     <p className="photo-date">{photo.date}</p>
-                    <button
-                      className="delete-button"
-                      onClick={() => handlePhotoDelete(photo.id)} // 🔸 delete function per photo
-                    >
-                      Delete
-                    </button>
                   </div>
                 </div>
               ))

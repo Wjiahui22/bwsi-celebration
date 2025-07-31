@@ -12,14 +12,14 @@ const MicroelectronicsWebsite = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [memoryWallPassword, setMemoryWallPassword] = useState('');
   const [isMemoryWallUnlocked, setIsMemoryWallUnlocked] = useState(false);
-  const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Team 1', files: [] });
+  const [newMemory, setNewMemory] = useState({ date: '', description: '', team: 'Homeo', files: [] });
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
-  const [newUpdate, setNewUpdate] = useState({ team: 'Team 1', update: '', author: '' });
+  const [newUpdate, setNewUpdate] = useState({ team: 'Homeo', update: '', author: '' });
   const [teamProjects, setTeamProjects] = useState({
-    'Team 1': {
+    'Homeo': {
       submissions: [{
-        id: 'team-1-1',
-        team: 'Team 1',
+        id: 'homeo-1',
+        team: 'Homeo',
         projectTitle: 'Homeo',
         shortDescription: 'A chip designed to monitor pet health metrics in real-time.',
         website: 'https://team1-petwellness.com',
@@ -30,10 +30,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 2': {
+    'Beaver Fever': {
       submissions: [{
-        id: 'team-2-1',
-        team: 'Team 2',
+        id: 'beaver-fever-1',
+        team: 'Beaver Fever',
         projectTitle: 'Beaver Fever',
         shortDescription: 'A chip to enhance medical recovery through adaptive therapy.',
         website: 'https://team2-recovery.com',
@@ -44,10 +44,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 3': {
+    'Monsieur Tortue': {
       submissions: [{
-        id: 'team-3-1',
-        team: 'Team 3',
+        id: 'monsieur-tortue-1',
+        team: 'Monsieur Tortue',
         projectTitle: 'Monsieur Tortue',
         shortDescription: 'A chip for real-time multilingual translation.',
         website: 'https://team3-multilingual.com',
@@ -58,10 +58,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 4': {
+    'Smart Garden': {
       submissions: [{
-        id: 'team-4-1',
-        team: 'Team 4',
+        id: 'smart-garden-1',
+        team: 'Smart Garden',
         projectTitle: 'Smart Garden',
         shortDescription: 'A chip for optimizing crop growth through environmental sensing.',
         website: 'https://team4-agriculture.com',
@@ -72,10 +72,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 5': {
+    'Handl': {
       submissions: [{
-        id: 'team-5-1',
-        team: 'Team 5',
+        id: 'handl-1',
+        team: 'Handl',
         projectTitle: 'Handl',
         shortDescription: 'A chip for intelligent handle control in smart devices.',
         website: 'https://team5-smarthandle.com',
@@ -86,10 +86,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 6': {
+    'PillMate': {
       submissions: [{
-        id: 'team-6-1',
-        team: 'Team 6',
+        id: 'pillmate-1',
+        team: 'PillMate',
         projectTitle: 'PillMate',
         shortDescription: 'A chip for precise medication dispensing in healthcare.',
         website: 'https://team6-pilldispense.com',
@@ -100,10 +100,10 @@ const MicroelectronicsWebsite = () => {
         documents: []
       }]
     },
-    'Team 7': {
+    'UNC': {
       submissions: [{
-        id: 'team-7-1',
-        team: 'Team 7',
+        id: 'unc-1',
+        team: 'UNC',
         projectTitle: 'UNC',
         shortDescription: 'A chip for enhanced network security and encryption.',
         website: 'https://team7-networksecurity.com',
@@ -116,8 +116,6 @@ const MicroelectronicsWebsite = () => {
     }
   });
   const [updateLogs, setUpdateLogs] = useState([]);
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '', ta: 'Carlos' });
-  const [contactMessage, setContactMessage] = useState('');
 
   const teams = ['Homeo', 'Beaver Fever', 'Monsieur Tortue', 'Smart Garden', 'Handl', 'PillMate', 'UNC'];
 
@@ -185,7 +183,7 @@ const MicroelectronicsWebsite = () => {
           name: file.name,
           date: newMemory.date || null,
           description: newMemory.description,
-          team: newMemory.team,
+          team: newMemory.team === 'Team 1' ? 'Homeo' : newMemory.team,
           upload_date: new Date().toISOString().split('T')[0]
         };
 
@@ -199,7 +197,7 @@ const MicroelectronicsWebsite = () => {
       reader.readAsDataURL(file);
     }
 
-    setNewMemory({ date: '', description: '', team: 'Team 1', files: [] });
+    setNewMemory({ date: '', description: '', team: 'Homeo', files: [] });
   };
 
   const handleMemorySubmit = () => {
@@ -212,23 +210,19 @@ const MicroelectronicsWebsite = () => {
       id: Date.now() + Math.random(),
       url: URL.createObjectURL(file),
       name: file.name,
-      team: newMemory.team,
+      team: newMemory.team === 'Team 1' ? 'Homeo' : newMemory.team,
       description: newMemory.description,
       date: newMemory.date
     }));
 
     setUploadedPhotos(prev => [...prev, ...newPhotos]);
-    setNewMemory({ date: '', team: 'Team 1', description: '', files: [] });
-  };
-
-  const handlePhotoDelete = (id) => {
-    setUploadedPhotos(prev => prev.filter(photo => photo.id !== id));
+    setNewMemory({ date: '', team: 'Homeo', description: '', files: [] });
   };
 
   const addUpdateLog = async () => {
     if (newUpdate.team && newUpdate.update && newUpdate.author) {
       const log = {
-        team: newUpdate.team,
+        team: newUpdate.team === 'Team 1' ? 'Homeo' : newUpdate.team,
         update: newUpdate.update,
         author: newUpdate.author,
         date: new Date().toISOString().split('T')[0]
@@ -239,34 +233,10 @@ const MicroelectronicsWebsite = () => {
         console.error('Error saving update:', error);
       } else {
         setUpdateLogs(prev => [log, ...prev]);
-        setNewUpdate({ team: 'Team 1', update: '', author: '' });
+        setNewUpdate({ team: 'Homeo', update: '', author: '' });
       }
     } else {
       alert('Please fill in all fields.');
-    }
-  };
-
-  const handleContactSubmit = async () => {
-    if (contactForm.name && contactForm.email && contactForm.message && contactForm.ta) {
-      try {
-        const { data, error } = await supabase.functions.invoke('send-email', {
-          body: contactForm,
-        });
-
-        if (error) {
-          console.error('Error sending email:', error);
-          setContactMessage(`Error: ${error.message}`);
-          return;
-        }
-
-        setContactMessage(`Message sent to ${contactForm.ta}! They will get back to you soon.`);
-        setContactForm({ name: '', email: '', message: '', ta: 'Carlos' });
-      } catch (error) {
-        console.error('Error sending email:', error);
-        setContactMessage('Error: Failed to send message. Please try again.');
-      }
-    } else {
-      setContactMessage('Please fill in all fields.');
     }
   };
 
@@ -277,8 +247,15 @@ const MicroelectronicsWebsite = () => {
         .select('*')
         .order('upload_date', { ascending: false });
 
-      if (error) console.error('Failed to fetch photos:', error);
-      else setUploadedPhotos(data);
+      if (error) {
+        console.error('Failed to fetch photos:', error);
+      } else {
+        const updatedPhotos = data.map(photo => ({
+          ...photo,
+          team: photo.team === 'Team 1' ? 'Homeo' : photo.team
+        }));
+        setUploadedPhotos(updatedPhotos);
+      }
     };
 
     if (isMemoryWallUnlocked) {
@@ -374,7 +351,6 @@ const MicroelectronicsWebsite = () => {
           handlePhotoUpload={handlePhotoUpload}
           uploadedPhotos={uploadedPhotos}
           handleMemorySubmit={handleMemorySubmit}
-          handlePhotoDelete={handlePhotoDelete}
           icons={icons}
         />
       )}
@@ -390,10 +366,6 @@ const MicroelectronicsWebsite = () => {
       )}
       {currentPage === 'contact' && (
         <ContactPage
-          contactForm={contactForm}
-          setContactForm={setContactForm}
-          handleContactSubmit={handleContactSubmit}
-          contactMessage={contactMessage}
           icons={icons}
         />
       )}
