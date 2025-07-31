@@ -117,6 +117,7 @@ const MicroelectronicsWebsite = () => {
   });
   const [updateLogs, setUpdateLogs] = useState([]);
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '', ta: 'Carlos' });
+  const [contactMessage, setContactMessage] = useState('');
 
   const teams = ['Homeo', 'Beaver Fever', 'Monsieur Tortue', 'Smart Garden', 'Handl', 'PillMate', 'UNC'];
 
@@ -246,16 +247,26 @@ const MicroelectronicsWebsite = () => {
   };
 
   const handleContactSubmit = async () => {
-    if (contactForm.name && contactForm.email && contactForm.message) {
-      const { error } = await supabase.from('contacts').insert([contactForm]);
-      if (error) {
-        console.error('Error sending message:', error);
-      } else {
-        alert(`Message sent to ${contactForm.ta}!`);
+    if (contactForm.name && contactForm.email && contactForm.message && contactForm.ta) {
+      try {
+        const { data, error } = await supabase.functions.invoke('send-email', {
+          body: contactForm,
+        });
+
+        if (error) {
+          console.error('Error sending email:', error);
+          setContactMessage(`Error: ${error.message}`);
+          return;
+        }
+
+        setContactMessage(`Message sent to ${contactForm.ta}! They will get back to you soon.`);
         setContactForm({ name: '', email: '', message: '', ta: 'Carlos' });
+      } catch (error) {
+        console.error('Error sending email:', error);
+        setContactMessage('Error: Failed to send message. Please try again.');
       }
     } else {
-      alert('Please fill in all fields.');
+      setContactMessage('Please fill in all fields.');
     }
   };
 
@@ -382,6 +393,7 @@ const MicroelectronicsWebsite = () => {
           contactForm={contactForm}
           setContactForm={setContactForm}
           handleContactSubmit={handleContactSubmit}
+          contactMessage={contactMessage}
           icons={icons}
         />
       )}

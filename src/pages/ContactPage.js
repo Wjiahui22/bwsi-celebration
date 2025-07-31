@@ -1,35 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const ContactPage = () => {
-  const [contactForm, setContactForm] = useState({ 
-    name: '', 
-    email: '', 
-    message: '', 
-    ta: 'Carlos' 
-  });
+const ContactPage = ({ contactForm, setContactForm, handleContactSubmit, contactMessage, icons }) => {
+  const tas = [
+    { name: 'Carlos', email: 'carlos.longoria.116@gmail.com', linkedin: 'https://www.linkedin.com/in/carlos-g-longoria/', image: '/images/carlos.jpeg' },
+    { name: 'Winnie', email: 'jhwinniec@u.northwestern.edu', linkedin: 'https://www.linkedin.com/in/jhwinniec/', image: '/images/winnie.png' },
+    { name: 'Joshua', email: 'joshuazhang101@gmail.com', linkedin: 'https://www.linkedin.com/in/jzhang101/', image: '/images/josh.jpeg' },
+    { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://www.linkedin.com/in/chakradhara/', image: '/images/chakri.jpeg' }
+  ];
 
-const tas = [
-  { name: 'Carlos', email: 'carlos.longoria.116@gmail.com', linkedin: 'https://www.linkedin.com/in/carlos-g-longoria/', image: '/images/carlos.jpeg' },
-  { name: 'Winnie', email: 'jhwinniec@u.northwestern.edu', linkedin: 'https://www.linkedin.com/in/jhwinniec/', image: '/images/winnie.png' },
-  { name: 'Joshua', email: 'joshuazhang101@gmail.com', linkedin: 'https://www.linkedin.com/in/jzhang101/', image: '/images/josh.jpeg' },
-  { name: 'Chakri', email: 'pemmasan@msu.edu', linkedin: 'https://www.linkedin.com/in/chakradhara/', image: '/images/chakri.jpeg' }
-];
-
-  const handleContactSubmit = () => {
-    if (contactForm.name && contactForm.email && contactForm.message) {
-      alert(`Message sent to ${contactForm.ta}! They will get back to you soon.`);
-      setContactForm({ name: '', email: '', message: '', ta: 'Carlos' });
-    } else {
-      alert('Please fill in all fields.');
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setContactForm((prev) => ({ ...prev, [name]: value }));
   };
 
   // LinkedIn icon as SVG
   const LinkedInIcon = () => (
-    <svg 
-      width="16" 
-      height="16" 
-      viewBox="0 0 24 24" 
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
       fill="currentColor"
       style={{ marginRight: '0.5rem' }}
     >
@@ -148,21 +137,12 @@ const tas = [
       border-radius: 0.75rem;
       border: 1px solid #404040;
     }
-    .ta-chip {
+    .ta-photo {
       width: 3rem;
       height: 3rem;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: white;
-      font-size: 1.25rem;
+      object-fit: cover;
     }
-    .chip-blue { background: #404040; }
-    .chip-gold { background: #facc15; color: #1a1a1a; }
-    .chip-dark-blue { background: #2a2a2a; }
-    .chip-light-gold { background: #facc15; color: #1a1a1a; }
     .ta-info {
       flex: 1;
     }
@@ -193,8 +173,16 @@ const tas = [
     .ta-link:hover {
       color: #3b82f6;
     }
-    .link-icon {
-      margin-right: 0.5rem;
+    .contact-message {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+    .contact-message.success {
+      color: #22c55e;
+    }
+    .contact-message.error {
+      color: #ef4444;
     }
   `;
 
@@ -203,65 +191,87 @@ const tas = [
       <style>{styles}</style>
       <div className="contact-page">
         <div className="contact-content">
-          <h1 className="contact-title">Contact TAs</h1>
+          <h1 className="contact-title">{icons?.contact || '📞'} Contact TAs</h1>
           <div className="contact-sections">
             <div className="contact-form">
               <h3 className="form-title">Send a Message</h3>
-              <div className="form-fields">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleContactSubmit();
+                }}
+                className="form-fields"
+              >
                 <div>
                   <label className="field-label">Your Name</label>
                   <input
                     type="text"
+                    name="name"
                     value={contactForm.name}
-                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    onChange={handleInputChange}
                     placeholder="Enter your name"
                     className="field-input"
+                    required
                   />
                 </div>
                 <div>
                   <label className="field-label">Email</label>
                   <input
                     type="email"
+                    name="email"
                     value={contactForm.email}
-                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    onChange={handleInputChange}
                     placeholder="Enter your email"
                     className="field-input"
+                    required
                   />
                 </div>
                 <div>
                   <label className="field-label">Select Mentor</label>
                   <select
+                    name="ta"
                     value={contactForm.ta}
-                    onChange={(e) => setContactForm({ ...contactForm, ta: e.target.value })}
+                    onChange={handleInputChange}
                     className="field-input"
+                    required
                   >
-                    {tas.map(ta => <option key={ta.name} value={ta.name}>{ta.name}</option>)}
+                    {tas.map(ta => (
+                      <option key={ta.name} value={ta.name}>{ta.name}</option>
+                    ))}
                   </select>
                 </div>
                 <div>
                   <label className="field-label">Message</label>
                   <textarea
+                    name="message"
                     value={contactForm.message}
-                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    onChange={handleInputChange}
                     placeholder="Your message..."
                     rows={5}
                     className="field-input"
+                    required
                   />
                 </div>
-                <button onClick={handleContactSubmit} className="form-button">Send Message</button>
-              </div>
+                <button type="submit" className="form-button">Send Message</button>
+              </form>
+              {contactMessage && (
+                <p
+                  className={`contact-message ${contactMessage.includes('Error') ? 'error' : 'success'}`}
+                >
+                  {contactMessage}
+                </p>
+              )}
             </div>
             <div className="contact-tas">
               <h3 className="form-title">Teaching Assistants</h3>
               <div className="ta-list">
-                {tas.map((ta, idx) => (
+                {tas.map((ta) => (
                   <div key={ta.name} className="ta-item">
-                      <img
-                        src={ta.image}
-                        alt={ta.name}
-                        className="ta-photo"
-                        style={{ width: '3rem', height: '3rem', borderRadius: '50%', objectFit: 'cover', marginRight: '1rem' }}
-                      />
+                    <img
+                      src={ta.image}
+                      alt={ta.name}
+                      className="ta-photo"
+                    />
                     <div className="ta-info">
                       <h4 className="ta-name">{ta.name}</h4>
                       <p className="ta-role">Teaching Assistant</p>
