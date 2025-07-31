@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import supabase from '../supabaseClient';
+import React, { useState, useEffect } from 'react';
 
 // CSS styles
 const styles = {
@@ -186,24 +187,49 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
   const [votes, setVotes] = useState({});
   const [selectedProject, setSelectedProject] = useState(null);
 
+  useEffect(() => {
+  const fetchVotes = async () => {
+    const { data, error } = await supabase.from('votes').select('*');
+    if (data) {
+      const voteMap = {};
+      data.forEach(row => {
+        voteMap[row.project_id] = row.vote_count;
+      });
+      setVotes(voteMap);
+    } else {
+      console.error('Failed to fetch votes:', error);
+    }
+  };
+
+  fetchVotes();
+}, []);
+
   const enhancedSubmissions = submissions || [];
 
-  const handleVote = (projectId) => {
-    setVotes(prev => ({
-      ...prev,
-      [projectId]: (prev[projectId] || 0) + 1
-    }));
-  };
+const handleVote = async (projectId) => {
+  // Optimistically update local state
+  setVotes(prev => ({
+    ...prev,
+    [projectId]: (prev[projectId] || 0) + 1
+  }));
+
+  const { data, error } = await supabase.rpc('increment_vote', { p_id: projectId });
+
+  if (error) {
+    console.log('RPC result:', { data, error });  // 👈 ADD THIS LINE
+    alert('Vote failed. Please try again.');
+  }
+};
 
   const filteredAndSortedSubmissions = enhancedSubmissions
     .filter(sub => {
       const matchesSearch = sub.projectTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            sub.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            sub.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-      
-      const matchesFilter = filterBy === 'all' || 
+
+      const matchesFilter = filterBy === 'all' ||
                            (filterBy === sub.category.toLowerCase());
-      
+
       return matchesSearch && matchesFilter;
     })
     .sort((a, b) => {
@@ -289,8 +315,8 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
         ) : (
           <div style={styles.projectGrid}>
             {filteredAndSortedSubmissions.map((submission) => (
-              <EnhancedProjectCard 
-                key={submission.id} 
+              <EnhancedProjectCard
+                key={submission.id}
                 submission={submission}
                 votes={votes}
                 onVote={handleVote}
@@ -319,7 +345,7 @@ const EnhancedProjectCard = ({ submission, votes, onVote, onViewDetails }) => {
   const totalVotes = (submission.votes || 0) + (votes[submission.id] || 0);
 
   return (
-    <div 
+    <div
       style={styles.projectCard}
       onMouseEnter={e => Object.assign(e.currentTarget.style, styles.projectCardHover)}
       onMouseLeave={e => Object.assign(e.currentTarget.style, styles.projectCard)}
@@ -427,7 +453,7 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
                 )}
               </div>
             </div>
-            
+
             <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
               <div style={{display: 'flex', alignItems: 'center', gap: '16px', fontSize: '14px'}}>
                 <span style={{display: 'flex', alignItems: 'center', gap: '4px', color: '#3b82f6'}}>
@@ -470,7 +496,7 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
                 <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Project Description</h4>
                 <p style={{color: '#d1d5db', lineHeight: '1.5'}}>{submission.shortDescription}</p>
               </div>
-              
+
               <div>
                 <h4 style={{fontSize: '18px', fontWeight: '600', color: '#facc15', marginBottom: '12px'}}>Tags</h4>
                 <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px'}}>
@@ -540,7 +566,7 @@ const EnhancedProjectModal = ({ submission, votes, onVote, onClose }) => {
               👍 Vote ({totalVotes})
             </button>
           </div>
-          
+
         </div>
       </div>
     </div>
