@@ -83,7 +83,10 @@ const MicroelectronicsWebsite = () => {
         votes: 0,
         tags: ['Accessibility', 'Mobility', 'Perception'],
         teamMembers: ['Bailey', 'Jazmine', 'Sujitha', 'Kazimir', 'Sophia'],
-        documents: []
+        documents: [{
+            name: 'Handl Documentation - Team 5',
+            url: '/pdfs/Handl.pdf'
+          }]
       }]
     },
     'PillMate': {
