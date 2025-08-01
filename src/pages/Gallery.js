@@ -270,12 +270,12 @@ const EnhancedShowcaseGallery = ({ submissions }) => {
                 style={styles.select}
               >
                 <option value="all">All Projects</option>
-                <option value="health">Health</option>
-                <option value="medical">Medical</option>
-                <option value="ai/ml">AI/ML</option>
-                <option value="agriculture">Agriculture</option>
-                <option value="iot">IoT</option>
-                <option value="security">Security</option>
+                <option value="healthcare">healthcare</option>
+                <option value="accessibility">accessibility</option>
+                <option value="agriculture">agriculture</option>
+                <option value="sustainability">sustainability</option>
+                <option value="wellness">wellness</option>
+                <option value="home">home</option>
               </select>
             </div>
           </div>
